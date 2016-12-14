@@ -1,0 +1,40 @@
+@(card: CardView)
+
+@main(s"Translate from ${card.fromLanguage.name} to ${card.toLanguage.name}") {
+    <h2>@card.query.value</h2>
+
+    <form id="checkForm">
+        <label for="answer" class="hint">to @card.toLanguage.name:</label>
+        <input id="answer" name="answer" type="text" value="" autocomplete="off" autofocus>
+        <input id="checkButton" type="submit" value="Check">&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="correct hidden">Correct :)</span>
+        <span class="incorrect hidden">Wrong!</span>
+    </form>
+
+    <script type="application/javascript">
+        var candidates = [@Html(card.possibleAnswers.toSeq.map(_.value.toLowerCase).map(s => s"'$s'").mkString(", "))];
+
+        function checkAnswer(e) {
+            if (e.preventDefault) e.preventDefault();
+
+            $(".incorrect").hide();
+            $(".correct").hide();
+
+            var answer = $("#answer").val();
+            if ($.inArray(answer.trim().toLowerCase(), candidates) > -1) {
+                $(".correct").show();
+                setTimeout(function(){ window.location.reload(false); }, 1500);
+            } else {
+                $(".incorrect").show();
+                setTimeout(function(){
+                    $("#answer").val("").focus();
+                    $(".incorrect").hide();
+                }, 2000);
+            }
+
+            return false;
+        }
+
+        $("#checkForm").submit(checkAnswer);
+    </script>
+}
