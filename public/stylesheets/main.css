@@ -1,12 +1,3 @@
-body {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    font-weight: 300;
-}
-
-h2 {
-    padding-left: 5em;
-    text-align: left;
-}
 .correct {
     font-weight: 400;
     color: forestgreen;
@@ -15,10 +6,6 @@ h2 {
 .incorrect {
     font-weight: 400;
     color: red;
-}
-
-.hint {
-    color: #aaaaaa;
 }
 
 .hidden {
