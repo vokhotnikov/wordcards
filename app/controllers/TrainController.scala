@@ -16,18 +16,23 @@ case class CardView(query: Word, possibleAnswers: Set[Word], fromLanguage: Langu
 
 @Singleton
 class TrainController @Inject () extends Controller {
-  val firstLanguage = english
-  val secondLanguage = russian
-
   val rnd = new Random()
 
   var stripRe = """\s*\([^)]*\)\s*""".r
 
-  lazy val wordVector = Words.vocabulary
-    .filter(wa => wa.words.exists(_.language == firstLanguage) && wa.words.exists(_.language == secondLanguage))
-    .toVector
+  def showCard(firstLangCode: String, secondLangCode: String) = Action {
+    def resolveLanguage(s: String) = s match {
+      case "en" => english
+      case "ru" => russian
+    }
 
-  def showCard() = Action {
+    val firstLanguage = resolveLanguage(firstLangCode)
+    val secondLanguage = resolveLanguage(secondLangCode)
+
+    val wordVector = Words.vocabulary
+      .filter(wa => wa.words.exists(_.language == firstLanguage) && wa.words.exists(_.language == secondLanguage))
+      .toVector
+
     val wa = wordVector(rnd.nextInt(wordVector.size))
 
     val possibleQueries = wa.words.filter(_.language == firstLanguage).toVector
