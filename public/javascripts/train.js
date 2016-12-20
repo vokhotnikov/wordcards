@@ -25,4 +25,10 @@ function checkAnswer(e) {
 
 $(function() {
     $("#checkForm").submit(checkAnswer);
+
+    if ($("audio").length) {
+        $("h2").click(function(){
+            $("audio")[0].play();
+        });
+    }
 });

@@ -2,7 +2,7 @@
 
 @main(s"Translate from ${card.fromLanguage.name} to ${card.toLanguage.name}", moreJsBases = Seq("train")) {
     <div class="row">
-        <h2 class="small-12 columns">@card.query.value</h2>
+        <h2 class="small-12 columns">@card.query.value @card.wordAudioHref.map(_ => <i class="fi-megaphone size-32"></i>)</h2>
     </div>
 
     <div class="row">
@@ -18,10 +18,16 @@
 
     <div class="row">
         <div class="small-12 columns">
-            <span class="correct success hidden">Correct :)</span>
-            <span class="incorrect alert hidden">Wrong!</span>
+            <span class="correct success hidden"><i class="fi-check size-24"></i> Correct :)</span>
+            <span class="incorrect alert hidden"><i class="fi-x-circle size-24"></i> Wrong!</span>
         </div>
     </div>
+
+    @card.wordAudioHref.map { href =>
+        <div class="row">
+            <audio src="@href"></audio>
+        </div>
+    }
 
     <script type="application/javascript">
         window.candidates = [@Html(card.possibleAnswers.toSeq.map(_.value.toLowerCase).map(s => s"'$s'").mkString(", "))];

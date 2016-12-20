@@ -12,7 +12,9 @@ import scala.util.Random
 /**
   * Created by hunter on 14/12/2016.
   */
-case class CardView(query: Word, possibleAnswers: Set[Word], fromLanguage: Language, toLanguage: Language)
+case class CardView(query: Word, possibleAnswers: Set[Word],
+                    wordAudioHref: Option[String],
+                    fromLanguage: Language, toLanguage: Language)
 
 @Singleton
 class TrainController @Inject () extends Controller {
@@ -24,6 +26,11 @@ class TrainController @Inject () extends Controller {
     def resolveLanguage(s: String) = s match {
       case "en" => english
       case "ru" => russian
+    }
+
+    def resolveAudio(word: String, language: Language) = language match {
+      case `english` => Some(s"https://ssl.gstatic.com/dictionary/static/sounds/de/0/${java.net.URLEncoder.encode(word, "UTF-8")}.mp3")
+      case _ => None
     }
 
     val firstLanguage = resolveLanguage(firstLangCode)
@@ -40,7 +47,7 @@ class TrainController @Inject () extends Controller {
     val possibleAnswers = wa.words.filter(_.language == secondLanguage)
       .map(w => Word(stripRe.replaceAllIn(w.value, " ").trim(), w.language))
 
-    val cardView = CardView(q, possibleAnswers, firstLanguage, secondLanguage)
+    val cardView = CardView(q, possibleAnswers, resolveAudio(q.value, q.language), firstLanguage, secondLanguage)
 
     Ok(views.html.card(cardView))
   }

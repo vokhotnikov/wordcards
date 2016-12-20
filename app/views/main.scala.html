@@ -16,12 +16,15 @@
         <title>@title</title>
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/foundation/dist/foundation.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/foundation-icon-fonts/foundation-icons.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         @for(base <- moreCssBases) {
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned(s"stylesheets/.css")">
         }
     </head>
     <body>
+        @nav()
+
         @* And here's where we render the `Html` object containing
         * the page content. *@
         @content
