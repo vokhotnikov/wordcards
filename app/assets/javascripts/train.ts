@@ -2,19 +2,19 @@
  * Created by hunter on 15/12/2016.
  */
 
-function checkAnswer(e) {
+function checkAnswer(e : Event) {
     if (e.preventDefault) e.preventDefault();
 
     $(".incorrect").hide();
     $(".correct").hide();
 
     var answer = $("#answer").val();
-    if ($.inArray(answer.trim().toLowerCase(), window.candidates) > -1) {
+    if ($.inArray(answer.trim().toLowerCase(), (<any>window).candidates) > -1) {
         $(".correct").show();
-        setTimeout(function(){ window.location.reload(false); }, 1500);
+        setTimeout(() => window.location.reload(false), 1500);
     } else {
         $(".incorrect").show();
-        setTimeout(function(){
+        setTimeout(() => {
             $("#answer").val("").focus();
             $(".incorrect").hide();
         }, 2000);
@@ -23,12 +23,12 @@ function checkAnswer(e) {
     return false;
 }
 
-$(function() {
+$(() => {
     $("#checkForm").submit(checkAnswer);
 
     if ($("audio").length) {
-        $("h2").click(function(){
-            $("audio")[0].play();
+        $("h2").click(() => {
+            ($("audio")[0] as HTMLAudioElement).play();
         });
     }
 });
