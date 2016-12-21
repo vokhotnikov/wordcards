@@ -56,7 +56,33 @@ object Words {
       | other # другой
     """.stripMargin
 
-  lazy val vocabulary = parseVocabulary(knownPairs, english, russian)
+  val knownPairs2 =
+    """
+      | father # отец
+      | mother # мать
+      | sister # сестра
+      | brother # брат
+      | cousin # кузен, двоюродный брат, двоюродная сестра
+      | nephew # племянник
+      | niece # племянница
+      | grandfather, granddad, grandpa # дедушка
+      | grandmother, grandma # бабушка
+      | stepfather # отчим
+      | stepmother # мачеха
+      | stepdaughter # падчерица
+      | stepson # пасынок
+      | mother-in-law # теща, свекровь
+      | father-in-law # тесть, свекр
+      | son-in-law # зять
+      | daughter-in-law # невестка, сноха (жена сына)
+      | brother-in-law # деверь, шурин
+      | sister-in-law # золовка
+      | ex-wife # бывшая жена
+      | ex-husband # бывший муж
+    """.stripMargin
+
+  lazy val vocabulary = parseVocabulary(knownPairs, english, russian) ++
+    parseVocabulary(knownPairs2, english, russian)
 
   def parseVocabulary(rawPairs: String, firstLanguage: Language, secondLanguage: Language): Vocabulary = {
     def parseWord(raw: String, language: Language): Set[Word] = {
