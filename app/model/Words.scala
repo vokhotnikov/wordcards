@@ -54,6 +54,9 @@ object Words {
       | how much # сколько (неисчислимое)
       | same # такой же
       | other # другой
+      | fat # толстый
+      | thin # худой
+      | snake # змея
     """.stripMargin
 
   val knownPairs2 =
@@ -65,6 +68,8 @@ object Words {
       | cousin # кузен, двоюродный брат, двоюродная сестра
       | nephew # племянник
       | niece # племянница
+      | aunt # тетя
+      | uncle # дядя
       | grandfather, granddad, grandpa # дедушка
       | grandmother, grandma # бабушка
       | stepfather # отчим
