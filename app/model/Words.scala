@@ -112,6 +112,9 @@ object Words {
       | half # половина
       | an so on # и так далее
       | try # пытаться, пробовать
+      | turn # поворот
+      | turn on # включить
+      | turn off выключить
     """.stripMargin
 
   lazy val vocabulary = Set(knownPairs, knownPairs2, knownPairs3, knownPairs4)
