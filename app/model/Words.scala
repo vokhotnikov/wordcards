@@ -86,8 +86,36 @@ object Words {
       | ex-husband # бывший муж
     """.stripMargin
 
-  lazy val vocabulary = parseVocabulary(knownPairs, english, russian) ++
-    parseVocabulary(knownPairs2, english, russian)
+  val knownPairs3 =
+    """
+      | my # мой
+      | your # твой, ваш
+      | his # его
+      | her # её
+      | its # его (неодушевленное), её (неодушевленное)
+      | our # наш
+      | their # их
+      | retired # на пенсии
+      | famous (be famous for) # известный
+    """.stripMargin
+
+  val knownPairs4 =
+    """
+      | angry # злой, сердитый
+      | sad # грустный
+      | happy # счастливый
+      | thirsty # страдающий от жажды
+      | tired # усталый, уставший
+      | hungry # голодный
+      | again # снова
+      | short # короткий
+      | half # половина
+      | an so on # и так далее
+      | try # пытаться, пробовать
+    """.stripMargin
+
+  lazy val vocabulary = Set(knownPairs, knownPairs2, knownPairs3, knownPairs4)
+    .flatMap(p => parseVocabulary(p, english, russian))
 
   def parseVocabulary(rawPairs: String, firstLanguage: Language, secondLanguage: Language): Vocabulary = {
     def parseWord(raw: String, language: Language): Set[Word] = {
