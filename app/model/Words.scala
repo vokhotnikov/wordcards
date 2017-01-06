@@ -79,11 +79,13 @@ object Words {
       | mother-in-law # теща, свекровь
       | father-in-law # тесть, свекр
       | son-in-law # зять
-      | daughter-in-law # невестка, сноха (жена сына)
-      | brother-in-law # деверь, шурин
-      | sister-in-law # золовка
+      | daughter-in-law # невестка, сноха, жена сына
+      | brother-in-law # муж сестры, брат жены
+      | sister-in-law # жена брата, сестра мужа
       | ex-wife # бывшая жена
       | ex-husband # бывший муж
+      | married # женат
+      | divorced # в разводе
     """.stripMargin
 
   val knownPairs3 =
@@ -91,8 +93,8 @@ object Words {
       | my # мой
       | your # твой, ваш
       | his # его
-      | her # её
-      | its # его (неодушевленное), её (неодушевленное)
+      | her # ее
+      | its # его (неодушевленное), ее (неодушевленное), этот
       | our # наш
       | their # их
       | retired # на пенсии
@@ -110,14 +112,31 @@ object Words {
       | again # снова
       | short # короткий
       | half # половина
-      | an so on # и так далее
+      | and so on # и так далее
       | try # пытаться, пробовать
       | turn # поворот
       | turn on # включить
       | turn off # выключить
     """.stripMargin
 
-  lazy val vocabulary = Set(knownPairs, knownPairs2, knownPairs3, knownPairs4)
+  val knownPairs5 =
+    """
+      | both # оба
+      | one more # еще один
+      | again # снова
+      | once more # еще раз
+      | a lot (of) # много
+      | things # вещи
+      | hour # час
+      | try # пробовать, пытаться
+      | want # хотеть
+      | drive # водить (машину)
+      | study # учить
+      | another # другой
+      | wear # носить
+    """.stripMargin
+
+  lazy val vocabulary = Set(knownPairs, knownPairs2, knownPairs3, knownPairs4, knownPairs5)
     .flatMap(p => parseVocabulary(p, english, russian))
 
   def parseVocabulary(rawPairs: String, firstLanguage: Language, secondLanguage: Language): Vocabulary = {
