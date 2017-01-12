@@ -10,12 +10,15 @@ pipelineStages := Seq(digest, gzip)
 
 libraryDependencies ++= Seq(
   jdbc,
+  evolutions,
   cache,
   ws,
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
   "org.webjars" % "foundation" % "6.2.3",
   "org.webjars" % "foundation-icon-fonts" % "d596a3cfb3",
   "org.webjars.npm" % "what-input" % "2.1.1",
-  "org.webjars" % "knockout" % "3.4.1"
+  "org.webjars" % "knockout" % "3.4.1",
+  "org.postgresql" % "postgresql" % "9.3-1102-jdbc41",
+  "com.typesafe.play" %% "play-slick" % "2.0.0"
 )
 
