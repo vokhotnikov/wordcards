@@ -72,6 +72,12 @@ object Words {
       | uncle # дядя
       | grandfather, granddad, grandpa # дедушка
       | grandmother, grandma # бабушка
+      | married # женат
+      | divorced # в разводе
+    """.stripMargin
+
+  var knownPairs2Opt =
+    """
       | stepfather # отчим
       | stepmother # мачеха
       | stepdaughter # падчерица
@@ -84,8 +90,6 @@ object Words {
       | sister-in-law # жена брата, сестра мужа
       | ex-wife # бывшая жена
       | ex-husband # бывший муж
-      | married # женат
-      | divorced # в разводе
     """.stripMargin
 
   val knownPairs3 =
@@ -106,7 +110,7 @@ object Words {
       | angry # злой, сердитый
       | sad # грустный
       | happy # счастливый
-      | thirsty # страдающий от жажды
+      | thirsty # страдающий от жажды, испытывающий жажду
       | tired # усталый, уставший
       | hungry # голодный
       | again # снова
@@ -136,7 +140,30 @@ object Words {
       | wear # носить
     """.stripMargin
 
-  lazy val vocabulary = Set(knownPairs, knownPairs2, knownPairs3, knownPairs4, knownPairs5)
+  val knownPairs6 =
+    """
+      | first # первый
+      | second # второй
+      | third # третий
+      | fourth # четвертый
+      | fifth # пятый
+      | sixth # шестой
+      | seventh # седьмой
+      | eighth # восьмой
+      | ninth # девятый
+      | tenth # десятый
+      | twentieth # двадцатый
+      | thirtieth # тридцатый
+      | Easter # пасха
+      | Christmas # рождество
+      | century # век
+      | different # отличающийся
+      | different hours # другое время
+      | until # до
+      | timetable # расписание
+    """.stripMargin
+
+  lazy val vocabulary = Set(knownPairs, knownPairs2, knownPairs3, knownPairs4, knownPairs5, knownPairs6)
     .flatMap(p => parseVocabulary(p, english, russian))
 
   def parseVocabulary(rawPairs: String, firstLanguage: Language, secondLanguage: Language): Vocabulary = {
