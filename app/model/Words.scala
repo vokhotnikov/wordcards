@@ -157,23 +157,55 @@ object Words {
       | Easter # пасха
       | Christmas # рождество
       | century # век
-      | different # отличающийся
+      | different # отличающийся, разный
       | different hours # другое время
       | until # до
       | timetable # расписание
     """.stripMargin
 
-  lazy val vocabulary = Set(knownPairs, knownPairs2, knownPairs3, knownPairs4, knownPairs5, knownPairs6)
+  val knownPairs7 =
+    """
+      | any # какой-то, какой-нибудь
+      | (to) like a lot # очень нравиться
+      | buy # покупать
+      | meet # встречать, встречаться
+      | sometimes # иногда
+      | hardly ever # почти никогда
+      | busy # занят
+      | (to be) in a hurry # спешить
+      | sky # небо
+      | once # один раз, однажды
+      | twice # два раза, дважды
+      | pair # пара
+      | sunset # закат
+      | island # остров
+      | healthy # здоровый
+      | unusual # необычный
+      | move # двигать, двигаться
+      | all over # по всему
+      | during # во время
+      | stay # оставаться
+      | near # близко, возле
+      | happen # случаться
+      | fixed # фиксированый
+      | of # из
+      | every # каждый
+      | impossible # невозможно
+    """.stripMargin
+
+  lazy val vocabulary = Set(knownPairs, knownPairs2, knownPairs3, knownPairs4, knownPairs5, knownPairs6, knownPairs7)
     .flatMap(p => parseVocabulary(p, english, russian))
+
+  val defaultWordSet = WordSet(-1, "default")
 
   def parseVocabulary(rawPairs: String, firstLanguage: Language, secondLanguage: Language): Vocabulary = {
     def parseWord(raw: String, language: Language): Set[Word] = {
-      raw.split(',').map(w => Word(w.trim, language)).toSet
+      raw.split(',').map(w => Word(0, w.trim, language)).toSet
     }
 
-    rawPairs.trim.split("\r\n".toArray).filter(_.trim.nonEmpty).map { s =>
+    rawPairs.trim.split("\r\n".toArray).filter(_.trim.nonEmpty).zipWithIndex.map { case(s, idx) =>
       val parts = s.split('#')
-      WordAssociation(parseWord(parts(0), firstLanguage) ++ parseWord(parts(1), secondLanguage))
+      WordAssociation((-1 - idx), parseWord(parts(0), firstLanguage) ++ parseWord(parts(1), secondLanguage), defaultWordSet)
     }.toSet
   }
 }

@@ -45,7 +45,7 @@ class TrainController @Inject () extends Controller {
     val possibleQueries = wa.words.filter(_.language == firstLanguage).toVector
     val q = possibleQueries(rnd.nextInt(possibleQueries.size))
     val possibleAnswers = wa.words.filter(_.language == secondLanguage)
-      .map(w => Word(stripRe.replaceAllIn(w.value, " ").trim(), w.language))
+      .map(w => Word(w.id, stripRe.replaceAllIn(w.value, " ").trim(), w.language))
 
     val cardView = CardView(q, possibleAnswers, resolveAudio(q.value, q.language), firstLanguage, secondLanguage)
 
